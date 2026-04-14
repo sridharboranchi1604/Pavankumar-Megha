@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pawankumar & Megha | Wedding</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(to bottom, #e3f2fd, #fff);
+    color: #3b2f2f;
+    overflow-x: hidden;
+}
+
+/* Entry Screen */
+#entryScreen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #fff8e1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 999;
+}
+
+#entryScreen h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 40px;
+}
+
+#entryScreen button {
+    margin-top: 20px;
+}
+
+/* Container */
+.container {
+    max-width: 420px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Headings */
+h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 44px;
+    color: #b68b2e;
+}
+
+h2 {
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+/* Card */
+.card {
+    background: white;
+    border-radius: 20px;
+    padding: 18px;
+    margin: 20px 0;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* Countdown */
+.countdown {
+    display: flex;
+    justify-content: space-around;
+    font-size: 18px;
+}
+
+/* Slideshow */
+.slideshow img {
+    width: 100%;
+    border-radius: 18px;
+    display: none;
+}
+.slideshow img.active {
+    display: block;
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    background: #b68b2e;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 30px;
+    margin-top: 10px;
+}
+
+/* Input */
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+/* Flowers */
+.flower {
+    position: fixed;
+    top: -40px;
+    font-size: 18px;
+    animation: fall linear infinite;
+    opacity: 0.6;
+}
+@keyframes fall {
+    to { transform: translateY(110vh); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Entry Screen -->
+<div id="entryScreen">
+    <h1>Pawankumar ❤️ Megha</h1>
+    <button onclick="enterSite()">Enter Invitation</button>
+</div>
+
+<!-- Music -->
+<audio id="music" loop>
+  <source src="music/soft-instrumental.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+<h2>|| SHREE GANESHAYA NAMAH ||</h2>
+<h1>Pawankumar & Megha</h1>
+
+<div class="card">
+<p>
+“Two souls, one journey.<br>
+Together with love & blessings,<br>
+we invite you to our wedding.”
+</p>
+</div>
+
+<!-- Countdown -->
+<div class="card">
+<h3>Wedding Countdown 🎉</h3>
+<div class="countdown">
+<div><span id="days"></span><br>Days</div>
+<div><span id="hours"></span><br>Hours</div>
+<div><span id="minutes"></span><br>Min</div>
+<div><span id="seconds"></span><br>Sec</div>
+</div>
+</div>
+
+<!-- Slideshow -->
+<div class="card slideshow">
+<img src="IMG/M1.jpeg" class="active">
+<img src="IMG/M2.jpeg">
+<img src="IMG/M3.jpeg">
+</div>
+
+<!-- Events -->
+<div class="card">
+<p><strong>📅 Wedding</strong><br>08 May 2026</p>
+<p><strong>📅 Sangeet</strong><br>07 May 2026</p>
+<p><strong>📅 Haldi</strong><br>07 May 2026</p>
+<p><strong>📍 Venue</strong><br>Nigudgi Function Hall, Kalaburagi</p>
+</div>
+
+<!-- Map -->
+<div class="card">
+<iframe 
+  src="https://www.google.com/maps?q=Nigudgi%20Function%20Hall%20Kalaburagi&output=embed">
+</iframe>
+
+<button onclick="openMap()">📍 Open Full Map</button>
+</div>
+
+<!-- RSVP -->
+<div class="card">
+<h3>💌 RSVP</h3>
+<input type="text" id="name" placeholder="Your Name">
+<select id="attending">
+  <option>Will you attend?</option>
+  <option>Yes, I will be there ❤️</option>
+  <option>Sorry, can't make it</option>
+</select>
+<button onclick="submitRSVP()">Submit RSVP</button>
+</div>
+
+<p style="font-size:14px;margin-top:20px;">
+With love, laughter & lifelong promises 💛
+</p>
+
+</div>
+
+<script>
+// Entry
+function enterSite() {
+    document.getElementById("entryScreen").style.display = "none";
+    document.getElementById("music").play();
+}
+
+// Countdown
+let weddingDate = new Date("May 8, 2026 00:00:00").getTime();
+setInterval(() => {
+    let now = new Date().getTime();
+    let gap = weddingDate - now;
+
+    let d = Math.floor(gap / (1000*60*60*24));
+    let h = Math.floor((gap % (1000*60*60*24)) / (1000*60*60));
+    let m = Math.floor((gap % (1000*60*60)) / (1000*60));
+    let s = Math.floor((gap % (1000*60)) / 1000);
+
+    document.getElementById("days").innerText = d;
+    document.getElementById("hours").innerText = h;
+    document.getElementById("minutes").innerText = m;
+    document.getElementById("seconds").innerText = s;
+}, 1000);
+
+// Slideshow
+let slides = document.querySelectorAll(".slideshow img");
+let i = 0;
+setInterval(() => {
+    slides[i].classList.remove("active");
+    i = (i + 1) % slides.length;
+    slides[i].classList.add("active");
+}, 3000);
+
+// Flowers
+for (let i = 0; i < 15; i++) {
+    let f = document.createElement("div");
+    f.className = "flower";
+    f.innerHTML = "🌸";
+    f.style.left = Math.random() * 100 + "vw";
+    f.style.animationDuration = 6 + Math.random() * 6 + "s";
+    document.body.appendChild(f);
+}
+
+// Map
+function openMap() {
+    window.open("https://maps.app.goo.gl/Nuwsf3d7A2M1aX819");
+}
+
+// RSVP
+function submitRSVP() {
+    let name = document.getElementById("name").value;
+    let attending = document.getElementById("attending").value;
+
+    if(name === "") {
+        alert("Please enter your name");
+        return;
+    }
+
+    let message = `Hello! I'm ${name}. ${attending}`;
+    window.open(`https://wa.me/919620701711?text=${encodeURIComponent(message)}`);
+}
+</script>
+
+</body>
+</html>
